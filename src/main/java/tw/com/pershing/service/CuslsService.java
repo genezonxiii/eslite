@@ -49,4 +49,8 @@ public class CuslsService {
 		final CuslsDetail returnDetail = detailRepository.saveCuslsDetail(detail);
 		return returnDetail;
 	}
+	
+	public Integer deleteCuslsDetailBySlKey(final String slKey) {
+		return detailRepository.deleteCuslsDetailBySlKey(slKey);
+	}
 }

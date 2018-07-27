@@ -106,13 +106,10 @@ public class JsonProcess {
 			for(Cusls cusls:cuslsList ){
 				logger.info(cusls.toString());
 				cuslsService.addCusls(cusls);
+				cuslsService.deleteCuslsDetailBySlKey(cusls.getSlKey());
 				for(CuslsDetail detail:cusls.getDetail()){
 					detail.setSlKey(cusls.getSlKey());
 					logger.info("Detail: {}", detail.toString());
-					CuslsDetail dbDetail = cuslsService.findCuslsDetailBySlKeyAndPNo(detail);
-					if (dbDetail != null){
-						detail.setCuslsDetailId(dbDetail.getCuslsDetailId());
-					}
 					cuslsService.addCuslsDetail(detail);
 				}
 			}

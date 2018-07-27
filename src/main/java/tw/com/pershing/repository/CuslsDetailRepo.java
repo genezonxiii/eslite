@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.slf4j.Logger;
@@ -54,5 +55,19 @@ public class CuslsDetailRepo {
 		et.commit();
 		em.close();
 		return cuslsDetail;
+	}
+	
+	public Integer deleteCuslsDetailBySlKey(String slKey) {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction et = em.getTransaction();
+		Query query = em
+			.createQuery("delete from CuslsDetail c where c.slKey=:slKey")
+			.setParameter("slKey", slKey);
+		et.begin();
+		Integer count = query.executeUpdate();
+		logger.info("deleteCuslsDetailBySlKey count: {}", count);
+		et.commit();
+		em.close();
+		return count;
 	}
 }

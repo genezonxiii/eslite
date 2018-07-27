@@ -109,6 +109,10 @@ public class JsonProcess {
 				for(CuslsDetail detail:cusls.getDetail()){
 					detail.setSlKey(cusls.getSlKey());
 					logger.info("Detail: {}", detail.toString());
+					CuslsDetail dbDetail = cuslsService.findCuslsDetailBySlKeyAndPNo(detail);
+					if (dbDetail != null){
+						detail.setCuslsDetailId(dbDetail.getCuslsDetailId());
+					}
 					cuslsService.addCuslsDetail(detail);
 				}
 			}

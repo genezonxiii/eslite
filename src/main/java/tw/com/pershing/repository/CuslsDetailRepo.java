@@ -21,21 +21,32 @@ public class CuslsDetailRepo {
 	@PersistenceUnit
 	private EntityManagerFactory emf;
 	
-	public List<CuslsDetail> findCuslsDetailBySlKeyAndPNo(CuslsDetail cuslsDetail) {
-		TypedQuery<CuslsDetail> query = emf.createEntityManager()
+	public CuslsDetail findCuslsDetailBySlKeyAndPNo(CuslsDetail cuslsDetail) {
+		EntityManager em = emf.createEntityManager();
+		TypedQuery<CuslsDetail> query = em
 				.createQuery("select c from CuslsDetail c where c.slKey=:slKey and c.pNo=:pNo", CuslsDetail.class)
 				.setParameter("slKey", cuslsDetail.getSlKey())
 				.setParameter("pNo", cuslsDetail.getpNo());
 		List<CuslsDetail> cuslsDetailList = query.getResultList();
 		logger.info("findCuslsBySlKey length: {}", cuslsDetailList.size());
-		return cuslsDetailList;
+		em.close();
+		if (cuslsDetailList.isEmpty()) {
+			return null;
+		} else if (cuslsDetailList.size() > 0) {
+			return cuslsDetailList.get(0);
+		}
+		return null;
 	}
 	
 	public CuslsDetail saveCuslsDetail(CuslsDetail cuslsDetail) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();
+		CuslsDetail existsCuslsDetail = cuslsDetail;
+		if (cuslsDetail.getCuslsDetailId() != null) {
+			existsCuslsDetail = em.find(CuslsDetail.class, cuslsDetail.getCuslsDetailId());
+		}
 		et.begin();
-		if (!em.contains(cuslsDetail)) {
+		if (!em.contains(existsCuslsDetail)) {
 			em.persist(cuslsDetail);
 		} else {
 			em.merge(cuslsDetail);

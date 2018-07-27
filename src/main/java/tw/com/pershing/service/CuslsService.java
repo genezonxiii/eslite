@@ -24,7 +24,11 @@ public class CuslsService {
     }
 	
 	public boolean slKeyAndPNoExist(final CuslsDetail cuslsDetail) {
-        return detailRepository.findCuslsDetailBySlKeyAndPNo(cuslsDetail).size() > 0;
+        return detailRepository.findCuslsDetailBySlKeyAndPNo(cuslsDetail) != null;
+    }
+	
+	public CuslsDetail findCuslsDetailBySlKeyAndPNo(final CuslsDetail cuslsDetail) {
+        return detailRepository.findCuslsDetailBySlKeyAndPNo(cuslsDetail);
     }
 	
 	public Cusls addCusls(final Cusls cusls) {
@@ -37,10 +41,10 @@ public class CuslsService {
     }
 	
 	public CuslsDetail addCuslsDetail(final CuslsDetail detail) {
-		if (slKeyAndPNoExist(detail)) {
-            throw new CuslsDetailAlreadyExistException("There is an Customer Sale Detail with that SLKEY and PNO: " + 
-            		detail.getSlKey() + ", " + detail.getpNo());
-        }
+//		if (slKeyAndPNoExist(detail)) {
+//            throw new CuslsDetailAlreadyExistException("There is an Customer Sale Detail with that SLKEY and PNO: " + 
+//            		detail.getSlKey() + ", " + detail.getpNo());
+//        }
 		
 		final CuslsDetail returnDetail = detailRepository.saveCuslsDetail(detail);
 		return returnDetail;

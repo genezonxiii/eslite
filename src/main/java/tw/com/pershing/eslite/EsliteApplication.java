@@ -1,6 +1,8 @@
 package tw.com.pershing.eslite;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +26,7 @@ public class EsliteApplication {
 	private static final String DATA_DIR = "in/";
 	private static final String BACKUP_DIR = "backup/";
 	private static final String[] SUB_DIR = {"customer/", "item/", "cusls/"};
+	private String processDatetime;
 	
 	@Autowired
 	JsonProcess pro;
@@ -39,6 +42,7 @@ public class EsliteApplication {
 
 		File dir = new File(ROOT_PATH + DATA_DIR);
 		File[] fileList = dir.listFiles();
+		this.setProcessDatetime( genDateFormat("yyyyMMddHHmmss") );
 		
 		for(File file: fileList) {
 			if (file.isDirectory()) { continue; }
@@ -63,9 +67,22 @@ public class EsliteApplication {
 		return null;
 	}
 	
+	private static String genDateFormat(String format){
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		return sdf.format(new Date());
+	}
+	
 	private void moveFile(File file, String PathTo){
-		if (! file.renameTo(new File(PathTo + file.getName())) ) {
+		if (! file.renameTo(new File(PathTo + file.getName() + "." + this.getProcessDatetime())) ) {
 			logger.error("RENAME FAIL: " + PathTo + file.getName());
 		}
+	}
+
+	public String getProcessDatetime() {
+		return processDatetime;
+	}
+
+	public void setProcessDatetime(String processDatetime) {
+		this.processDatetime = processDatetime;
 	}
 }

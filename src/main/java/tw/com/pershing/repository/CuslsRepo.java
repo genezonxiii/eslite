@@ -34,7 +34,8 @@ public class CuslsRepo {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();
 		et.begin();
-		if (!em.contains(cusls)) {
+		Cusls existsCusls = em.find(Cusls.class, cusls.getSlKey());
+		if (!em.contains(existsCusls)) {
 			em.persist(cusls);
 		} else {
 			em.merge(cusls);

@@ -20,9 +20,9 @@ public class ItemService {
     }
 	
 	public Item addItem(final Item item) {
-        if (matnrExist(item.getMatnr())) {
-            throw new ItemAlreadyExistException("There is an Item with that Material No: " + item.getMatnr());
-        }
+//        if (matnrExist(item.getMatnr())) {
+//            throw new ItemAlreadyExistException("There is an Item with that Material No: " + item.getMatnr());
+//        }
 
         final Item returnItem = repository.saveItem(item);
         return returnItem;

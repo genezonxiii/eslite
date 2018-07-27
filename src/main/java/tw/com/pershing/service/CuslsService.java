@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import tw.com.pershing.domain.Cusls;
 import tw.com.pershing.domain.CuslsDetail;
-import tw.com.pershing.error.CuslsAlreadyExistException;
 import tw.com.pershing.error.CuslsDetailAlreadyExistException;
 import tw.com.pershing.repository.CuslsDetailRepo;
 import tw.com.pershing.repository.CuslsRepo;
@@ -29,9 +28,9 @@ public class CuslsService {
     }
 	
 	public Cusls addCusls(final Cusls cusls) {
-        if (slKeyExist(cusls.getSlKey())) {
-            throw new CuslsAlreadyExistException("There is an Customer Sale List with that SLKEY: " + cusls.getSlKey());
-        }
+//        if (slKeyExist(cusls.getSlKey())) {
+//            throw new CuslsAlreadyExistException("There is an Customer Sale List with that SLKEY: " + cusls.getSlKey());
+//        }
 
         final Cusls returnCusls = repository.saveCusls(cusls);
         return returnCusls;

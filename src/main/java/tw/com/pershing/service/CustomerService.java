@@ -20,9 +20,9 @@ public class CustomerService {
     }
 	
 	public Customer addCustomer(final Customer customer) {
-        if (cNoExist(customer.getcNo())) {
-            throw new CustomerAlreadyExistException("There is an Customer with that Customer No: " + customer.getcNo());
-        }
+//        if (cNoExist(customer.getcNo())) {
+//            throw new CustomerAlreadyExistException("There is an Customer with that Customer No: " + customer.getcNo());
+//        }
 
         final Customer returnCustomer = repository.saveUser(customer);
         return returnCustomer;

@@ -34,7 +34,8 @@ public class CustomerRepo {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();
 		et.begin();
-		if (!em.contains(customer)) {
+		Customer existsCustomer = em.find(Customer.class, customer.getcNo());
+		if (!em.contains(existsCustomer)) {
 			em.persist(customer);
 		} else {
 			em.merge(customer);

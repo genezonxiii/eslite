@@ -34,7 +34,8 @@ public class ItemRepo {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();
 		et.begin();
-		if (!em.contains(item)) {
+		Item existsItem = em.find(Item.class, item.getMatnr());
+		if (!em.contains(existsItem)) {
 			em.persist(item);
 		} else {
 			em.merge(item);

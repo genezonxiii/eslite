@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -26,11 +27,15 @@ public class Customer {
 	
 	@JsonProperty("C_EMAIL")
 	private String cEmail;
+	
+	@JsonProperty("C_BIRTH")
+	@JsonFormat(pattern="yyyy/MM/dd", timezone="GMT+8")
+	private String cBirth;
 
 	@Override
     public String toString(){
         return getcNo() + ", " + getcCountry() + ", " + getcSex() + 
-        		", " + getcZip() + ", " + getcEmail();
+        		", " + getcZip() + ", " + getcEmail() + ", " + getcBirth();
     }
 
 	public String getcNo() {
@@ -71,5 +76,13 @@ public class Customer {
 
 	public void setcEmail(String cEmail) {
 		this.cEmail = cEmail;
+	}
+
+	public String getcBirth() {
+		return cBirth;
+	}
+
+	public void setcBirth(String cBirth) {
+		this.cBirth = cBirth;
 	}
 }

@@ -22,7 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<jackson.library>2.9.5</jackson.library>
+		<jackson.library>2.9.9</jackson.library>
 	</properties>
 
 	<dependencies>
@@ -56,6 +56,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>
